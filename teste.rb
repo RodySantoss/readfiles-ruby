@@ -1,15 +1,26 @@
-require 'find'
-Find.find('c:/') do |f|
-    if FileTest.directory?(f)
-        if File.basename(path).start_with?('.')
-            Find.prune       # Don't look any further into this directory.
-        else
-            next
-        end
-        type = case
-        when File.file?(f) then "F"
-        when File.directory?(f) then "D"
-        else "?"
+count = 1
+    Dir.each_child(diretorio) do |x| 
+        arr << x 
+        puts "#{count} - #{x}"
+        puts "-" * 20
+        count += 1
     end
-    puts "#{type}: #{f}"
-end
+    aux = gets.to_i
+    diretorio = "#{diretorio}#{arr[aux-1].to_s}"
+    puts diretorio
+    while File.file?(diretorio) == false
+        arr = [""]
+        count = 1
+        Dir.each_child(diretorio) do |x|
+            #puts x
+            arr << x 
+            #puts arr
+            puts "#{count} - #{x}"
+            puts "-" * 20
+            count += 1
+        end
+        count = 1
+        aux = gets.to_i
+        diretorio = "#{diretorio}/#{arr[aux].to_s}"
+        puts diretorio
+    end
